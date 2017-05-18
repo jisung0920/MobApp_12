@@ -15,11 +15,15 @@
         android:weightSum="4"
         >
         <CheckBox
+            android:text="stamp"
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:id="@+id/c1"
             android:layout_height="match_parent" />
 
         <Button
+            android:onClick="onClick"
+            android:id="@+id/erase"
             android:text="ERASER"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -39,6 +43,7 @@
 
     </LinearLayout>
     <com.example.jisung.mobapp_12.MyDraw
+        android:id="@+id/mview"
         android:layout_weight="5"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
@@ -50,24 +55,32 @@
         android:weightSum="4"
         >
         <Button
+            android:onClick="onClick"
+            android:id="@+id/rot"
             android:text="ROTATE"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 
         <Button
+            android:onClick="onClick"
+            android:id="@+id/mov"
             android:text="MOVE"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 
         <Button
+            android:onClick="onClick"
+            android:id="@+id/sca"
             android:text="SCALE"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 
         <Button
+            android:onClick="onClick"
+            android:id="@+id/ske"
             android:text="SKEW"
             android:layout_weight="1"
             android:layout_width="0dp"
