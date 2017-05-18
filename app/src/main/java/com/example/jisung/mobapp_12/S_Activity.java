@@ -16,10 +16,10 @@ public class S_Activity extends AppCompatActivity {
         if(v.getId()==R.id.bt1){
             Intent intent = new Intent(this,PracActivity.class);
             startActivity(intent);
-        }/*
+        }
         else{
-            Intent intent = new Intent(this,Main2Activity.class);
+            Intent intent = new Intent(this,PaintActivity.class);
             startActivity(intent);
-        }*/
+        }
     }
 }

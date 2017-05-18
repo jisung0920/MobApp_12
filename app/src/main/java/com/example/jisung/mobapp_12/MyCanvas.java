@@ -2,6 +2,7 @@ package com.example.jisung.mobapp_12;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -48,6 +49,17 @@ public class MyCanvas extends View {
 
         mPaint.setTextSize(70);
         canvas.drawText("Click me",300,300,mPaint);//x,y 시작만 지정하면 된다
+
+        Bitmap img = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+        canvas.drawBitmap(img,300,350,mPaint);
+        canvas.drawBitmap(img,400,150,mPaint);
+
+        Bitmap simg = Bitmap.createScaledBitmap(img,img.getWidth()/2,img.getHeight()/2,false);
+        canvas.drawBitmap(simg,400,350,mPaint);
+        Bitmap bimg = Bitmap.createScaledBitmap(img,img.getWidth()*2,img.getHeight()*2,false);
+        canvas.drawBitmap(bimg,600,150,mPaint);
+
+        img.recycle();
     }
 
     @Override
