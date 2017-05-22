@@ -8,12 +8,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.DrawFilter;
+
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import java.io.IOException;
 
 /**
  * Created by jisung on 2017-05-18.
@@ -25,19 +30,27 @@ public class MyDraw extends View {
     Paint mPaint = new Paint();
     Boolean dmode = true;
     BlurMaskFilter blur;
-
+    float[] ary = {2f, 0f, 0f, 0f, -25f,
+            0f, 2f, 0f, 0f, -25f,
+            0f, 0f, 2f, 0f, -25f,
+            0f, 0f, 0f, 1f, 0f,
+    };
+    ColorMatrix matrix = new ColorMatrix(ary);
     int oldX = -1, oldY = -1;
 
     public MyDraw(Context context) {
         super(context);
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mPaint.setColor(Color.BLACK);
+        mPaint.setStrokeWidth(3);
 
     }
 
     public MyDraw(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mPaint.setColor(Color.BLACK);
+        mPaint.setStrokeWidth(3);
 
     }
 
@@ -58,11 +71,11 @@ public class MyDraw extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mBit != null)
-            canvas.drawBitmap(mBit, 0, 0, mPaint);
+            canvas.drawBitmap(mBit, 0, 0, null);
     }
 
     private void drawStamp(int x, int y) {
-        Bitmap img = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        Bitmap img = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
         mCan.drawBitmap(img, x, y, mPaint);
     }
 
@@ -81,19 +94,41 @@ public class MyDraw extends View {
         invalidate();
     }
 
+    public Boolean open(String path) {
+        try {
+            clear();
+            Bitmap file = BitmapFactory.decodeFile(path + "canvas.jpg");
+            file = Bitmap.createScaledBitmap(file, file.getWidth() / 2, file.getHeight() / 2, false);
+            mCan.drawBitmap(file, mCan.getWidth() / 2 - file.getWidth() / 2, mCan.getHeight() / 2 - file.getHeight() / 2, mPaint);
+            invalidate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public Boolean save(String path) {
+        try {
+            FileOutputStream out = new FileOutputStream(path + "canvas.jpg");
+            mBit.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+            return true;
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        }
+        return false;
+
+    }
+
     public void ColorF(Boolean check) {
 
         if (check) {
-            float[] ary = {2f, 0f, 0f, 0f, -25f,
-                    0f, 2f, 0f, 0f, -25f,
-                    0f, 0f, 2f, 0f, -25f,
-                    0f, 0f, 0f, 1f, 0f,
-            };
-            ColorMatrix matrix = new ColorMatrix(ary);
             mPaint.setColorFilter(new ColorMatrixColorFilter(matrix));
-        }
-        else
-            mPaint=new Paint();
+        } else
+            mPaint = new Paint();
         invalidate();
     }
 

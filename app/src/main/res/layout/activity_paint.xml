@@ -30,12 +30,16 @@
             android:layout_height="match_parent" />
 
         <Button
+            android:id="@+id/open"
+            android:onClick="onClick"
             android:text="OPEN"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
 
         <Button
+            android:id="@+id/save"
+            android:onClick="onClick"
             android:text="SAVE"
             android:layout_weight="1"
             android:layout_width="0dp"
